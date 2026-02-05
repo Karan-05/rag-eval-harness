@@ -1,0 +1,3 @@
+{"id": "q1", "question": "How can I reduce inference cost in production?", "answer": "Cache embeddings, reuse retrieval hits, and batch similar prompts.", "context": "38% lower inference cost via caching and batching"}
+{"id": "q2", "question": "What keeps UI performance high with large tables?", "answer": "Windowed rendering and streamable queries sustain 60fps at 100k+ rows.", "context": "60fps UI at 100k rows"}
+{"id": "q3", "question": "How do retries avoid swap thrash?", "answer": "Backoff queues and DLQ fallbacks keep swap thrash around 50% lower.", "context": "~50% less swap thrash"}
