@@ -15,7 +15,10 @@ class Evaluator:
 		self.cache = EvalCache(self.settings.cache_path)
 
 	def seed_store(self) -> None:
-		docs = ((item["id"], item["context"]) for item in load_questions(self.settings.dataset_path))
+		docs = (
+			(item["id"], item["context"])
+			for item in load_questions(self.settings.dataset_path)
+		)
 		self.store.bulk_load(docs)
 
 	def _evaluate_question(self, question: dict, use_cache: bool = True) -> EvalResult:
@@ -40,7 +43,10 @@ class Evaluator:
 
 	def run(self, use_cache: bool = True) -> dict:
 		self.seed_store()
-		results = [self._evaluate_question(q, use_cache=use_cache) for q in load_questions(self.settings.dataset_path)]
+		results = [
+			self._evaluate_question(q, use_cache=use_cache)
+			for q in load_questions(self.settings.dataset_path)
+		]
 		return self._summaries(results)
 
 	async def run_async(self, use_cache: bool = True) -> dict:
@@ -51,7 +57,9 @@ class Evaluator:
 			async with semaphore:
 				return self._evaluate_question(entry, use_cache=use_cache)
 
-		results = await asyncio.gather(*[evaluate_entry(q) for q in load_questions(self.settings.dataset_path)])
+		results = await asyncio.gather(
+			*[evaluate_entry(q) for q in load_questions(self.settings.dataset_path)],
+		)
 		return self._summaries(results)
 
 	def _summaries(self, results: Iterable[EvalResult]) -> dict:
