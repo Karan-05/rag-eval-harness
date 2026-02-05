@@ -4,9 +4,9 @@ from typing import Optional
 import typer
 
 from .config import EvalSettings
+from .data import load_questions
 from .evaluator import Evaluator
 from .store import VectorStore
-from .data import load_questions
 
 app = typer.Typer(help="RAG evaluation harness CLI")
 
@@ -23,7 +23,10 @@ def ingest(dataset: Optional[str] = typer.Option(None, help="Path to dataset JSO
 
 
 @app.command()
-def evaluate(async_mode: bool = typer.Option(False, "--async", help="Run with async workers"), use_cache: bool = True):
+def evaluate(
+	async_mode: bool = typer.Option(False, "--async", help="Run with async workers"),
+	use_cache: bool = True,
+):
 	settings = EvalSettings()
 	runner = Evaluator(settings)
 	try:
